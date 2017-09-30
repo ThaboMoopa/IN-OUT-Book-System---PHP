@@ -1,0 +1,402 @@
+-- phpMyAdmin SQL Dump
+-- version 4.4.15.7
+-- http://www.phpmyadmin.net
+--
+-- Host: 127.0.0.1
+-- Generation Time: Sep 30, 2017 at 03:10 PM
+-- Server version: 5.6.36
+-- PHP Version: 7.0.16
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `Books_Project`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `book`
+--
+
+CREATE TABLE IF NOT EXISTS `book` (
+  `book_id` int(11) NOT NULL,
+  `category_id` int(11) DEFAULT NULL,
+  `quantity` int(11) DEFAULT NULL,
+  `author` varchar(70) DEFAULT NULL,
+  `description` text,
+  `image` varchar(30) DEFAULT NULL,
+  `price` float DEFAULT NULL,
+  `title` text,
+  `isbn_number` int(11) DEFAULT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `book`
+--
+
+INSERT INTO `book` (`book_id`, `category_id`, `quantity`, `author`, `description`, `image`, `price`, `title`, `isbn_number`) VALUES
+(1, 1, 14, 'Don Gosselin', 'Covers the basics of PHP and MySQL along with introductions to advanced topics including object-oriented programming and how to build Web sites that incorporate authentication and security. ', 'images/don.jpg', 700, 'PHP Programming with MySQL: The Web Technologies Series', 538745843),
+(2, 2, 9, 'Pride and Ferrell', 'Pride and Ferrell MARKETING 2016 provides a thorough overview of essential marketing principles within a visually engaging, reader-friendly presentation. ', 'images/marketing.jpg', 800, 'Marketing 2016', 2147483647),
+(3, 3, 0, 'Harry Gretton, Neil Challis', 'This student friendly workbook addresses mathematical topics using SONG - a combination of Symbolic, Oral, Numerical and Graphical approaches', 'images/engineering.jpg', 500, 'Fundamental Engineering Mathematics ', 2147483647),
+(4, 1, 50, 'Francisco Castillo', 'There are two different, interdependent components of IT that are important to a CIO: strategy, which is long-term; and tactical and operational concerns, which are short-term.', 'images/managing.jpg', 0, 'Managing Information Technology', 2147483647),
+(5, 0, 7, 'Y. Daniel Liang', 'Using a fundamentals-first approach, Liang explores the concepts of problem-solving and object-oriented programming', 'images/java.jpg', 0, 'Introduction to Java Programming: Fundamentals First', 132237385),
+(6, 0, 1, 'June Jamrich Parsons', 'Develop the complete set of Microsoft Excel 2016 skills you need to be successful in college and beyond with the emphasis on critical-thinking, problem-solving, and in-depth coverage found in NEW PERSPECTIVES MICROSOFT OFFICE 365 & EXCEL 2016: COMPREHENSIVE.', 'images/excel.jpg', 0, 'New Perspectives Microsoft Office 365 Excel 2016', 1305880404),
+(27, 0, 1, 'une Jamrich Parsons', 'images/excel.jpg', 'ewjfaklsfdlsafasfjaskdfjjaklfj', 0, 'New Perspectives Microsoft Office 365  & Excel 2016', 133725147),
+(28, 0, 1, 'Francisco Castillo', 'images/excel.jpg', 'There are two different, inter', 0, 'Managing Information Technology', 2147483647),
+(30, 0, 1, 'uyiu', 'images/java.jpg', 'wqerqwer', 0, 'wer', 2147483647);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `category`
+--
+
+CREATE TABLE IF NOT EXISTS `category` (
+  `category_id` int(11) NOT NULL,
+  `type` varchar(70) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `category`
+--
+
+INSERT INTO `category` (`category_id`, `type`) VALUES
+(1, 'Information Technology'),
+(2, 'Marketing'),
+(3, 'Engineering ');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Customer`
+--
+
+CREATE TABLE IF NOT EXISTS `Customer` (
+  `customer_id` int(11) NOT NULL,
+  `name` varchar(70) NOT NULL,
+  `surname` varchar(70) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `contact` varchar(10) NOT NULL,
+  `unitno` varchar(11) NOT NULL,
+  `street` varchar(50) NOT NULL,
+  `city` varchar(50) NOT NULL,
+  `province` varchar(50) NOT NULL,
+  `postalcode` varchar(7) NOT NULL,
+  `password` varchar(255) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Customer`
+--
+
+INSERT INTO `Customer` (`customer_id`, `name`, `surname`, `email`, `contact`, `unitno`, `street`, `city`, `province`, `postalcode`, `password`) VALUES
+(71, 'Thabo', 'Moopa', 'thabo.moopa@gmail.com', '0849262255', '24', 'Kaapzihct', 'Cape town', 'Western Cape', '0987', '351c023bf9158d7e23464ed18115bf0a');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `invoices`
+--
+
+CREATE TABLE IF NOT EXISTS `invoices` (
+  `customer_id` int(11) NOT NULL,
+  `invoice_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=2145119161 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `invoices`
+--
+
+INSERT INTO `invoices` (`customer_id`, `invoice_id`) VALUES
+(71, 776879037),
+(71, 1975659800);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `items_purchased`
+--
+
+CREATE TABLE IF NOT EXISTS `items_purchased` (
+  `item_id` int(11) NOT NULL,
+  `invoice_id` int(11) NOT NULL,
+  `price` float NOT NULL,
+  `title` varchar(60) NOT NULL,
+  `purchase_date` date NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `subtotal` float NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=19 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `items_swapped`
+--
+
+CREATE TABLE IF NOT EXISTS `items_swapped` (
+  `items_id` int(11) NOT NULL,
+  `invoice_id` int(11) NOT NULL,
+  `purchase_date` date NOT NULL,
+  `title` text NOT NULL,
+  `total` float NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orderLine`
+--
+
+CREATE TABLE IF NOT EXISTS `orderLine` (
+  `line_id` int(11) NOT NULL,
+  `quantity` int(11) NOT NULL,
+  `total` float NOT NULL,
+  `book_id` int(11) NOT NULL,
+  `invoice_id` int(11) NOT NULL,
+  `order_id` varchar(30) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `orders`
+--
+
+CREATE TABLE IF NOT EXISTS `orders` (
+  `order_id` varchar(30) NOT NULL,
+  `customer_id` int(11) NOT NULL,
+  `order_date` date NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `orders`
+--
+
+INSERT INTO `orders` (`order_id`, `customer_id`, `order_date`) VALUES
+('r51uq91cljvoim92383f4etie3', 71, '2017-09-27');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `Swap`
+--
+
+CREATE TABLE IF NOT EXISTS `Swap` (
+  `customer_id` int(11) NOT NULL,
+  `order_id` varchar(70) NOT NULL,
+  `invoice_id` int(11) NOT NULL,
+  `swap_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `Swap`
+--
+
+INSERT INTO `Swap` (`customer_id`, `order_id`, `invoice_id`, `swap_id`) VALUES
+(71, 'r51uq91cljvoim92383f4etie3', 1975659800, 9);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `SwapBook`
+--
+
+CREATE TABLE IF NOT EXISTS `SwapBook` (
+  `swap_book_id` int(11) NOT NULL,
+  `Book_id` int(11) NOT NULL,
+  `price` float NOT NULL,
+  `swap_id` int(11) NOT NULL
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=latin1;
+
+--
+-- Dumping data for table `SwapBook`
+--
+
+INSERT INTO `SwapBook` (`swap_book_id`, `Book_id`, `price`, `swap_id`) VALUES
+(7, 30, 0, 9);
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `book`
+--
+ALTER TABLE `book`
+  ADD PRIMARY KEY (`book_id`),
+  ADD KEY `category_id` (`category_id`),
+  ADD KEY `category_id_2` (`category_id`);
+
+--
+-- Indexes for table `category`
+--
+ALTER TABLE `category`
+  ADD PRIMARY KEY (`category_id`);
+
+--
+-- Indexes for table `Customer`
+--
+ALTER TABLE `Customer`
+  ADD PRIMARY KEY (`customer_id`);
+
+--
+-- Indexes for table `invoices`
+--
+ALTER TABLE `invoices`
+  ADD PRIMARY KEY (`invoice_id`),
+  ADD KEY `customer_id` (`customer_id`);
+
+--
+-- Indexes for table `items_purchased`
+--
+ALTER TABLE `items_purchased`
+  ADD PRIMARY KEY (`item_id`),
+  ADD KEY `invoice_id` (`invoice_id`);
+
+--
+-- Indexes for table `items_swapped`
+--
+ALTER TABLE `items_swapped`
+  ADD PRIMARY KEY (`items_id`),
+  ADD KEY `invoice_id` (`invoice_id`);
+
+--
+-- Indexes for table `orderLine`
+--
+ALTER TABLE `orderLine`
+  ADD PRIMARY KEY (`line_id`),
+  ADD KEY `book_id` (`book_id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
+-- Indexes for table `orders`
+--
+ALTER TABLE `orders`
+  ADD PRIMARY KEY (`order_id`),
+  ADD KEY `customer_id` (`customer_id`),
+  ADD KEY `customer_id_2` (`customer_id`),
+  ADD KEY `customer_id_3` (`customer_id`);
+
+--
+-- Indexes for table `Swap`
+--
+ALTER TABLE `Swap`
+  ADD PRIMARY KEY (`swap_id`),
+  ADD KEY `order_id` (`order_id`);
+
+--
+-- Indexes for table `SwapBook`
+--
+ALTER TABLE `SwapBook`
+  ADD PRIMARY KEY (`swap_book_id`),
+  ADD KEY `swap_id` (`swap_id`),
+  ADD KEY `Book_id` (`Book_id`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `book`
+--
+ALTER TABLE `book`
+  MODIFY `book_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=31;
+--
+-- AUTO_INCREMENT for table `category`
+--
+ALTER TABLE `category`
+  MODIFY `category_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `Customer`
+--
+ALTER TABLE `Customer`
+  MODIFY `customer_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=72;
+--
+-- AUTO_INCREMENT for table `invoices`
+--
+ALTER TABLE `invoices`
+  MODIFY `invoice_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2145119161;
+--
+-- AUTO_INCREMENT for table `items_purchased`
+--
+ALTER TABLE `items_purchased`
+  MODIFY `item_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=19;
+--
+-- AUTO_INCREMENT for table `items_swapped`
+--
+ALTER TABLE `items_swapped`
+  MODIFY `items_id` int(11) NOT NULL AUTO_INCREMENT;
+--
+-- AUTO_INCREMENT for table `orderLine`
+--
+ALTER TABLE `orderLine`
+  MODIFY `line_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `Swap`
+--
+ALTER TABLE `Swap`
+  MODIFY `swap_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=10;
+--
+-- AUTO_INCREMENT for table `SwapBook`
+--
+ALTER TABLE `SwapBook`
+  MODIFY `swap_book_id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=8;
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `category`
+--
+ALTER TABLE `category`
+  ADD CONSTRAINT `category_ibfk_1` FOREIGN KEY (`category_id`) REFERENCES `book` (`category_id`);
+
+--
+-- Constraints for table `invoices`
+--
+ALTER TABLE `invoices`
+  ADD CONSTRAINT `invoices_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `Customer` (`customer_id`);
+
+--
+-- Constraints for table `items_purchased`
+--
+ALTER TABLE `items_purchased`
+  ADD CONSTRAINT `items_purchased_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`invoice_id`);
+
+--
+-- Constraints for table `items_swapped`
+--
+ALTER TABLE `items_swapped`
+  ADD CONSTRAINT `items_swapped_ibfk_1` FOREIGN KEY (`invoice_id`) REFERENCES `invoices` (`invoice_id`);
+
+--
+-- Constraints for table `orderLine`
+--
+ALTER TABLE `orderLine`
+  ADD CONSTRAINT `orderline_ibfk_1` FOREIGN KEY (`order_id`) REFERENCES `orders` (`order_id`),
+  ADD CONSTRAINT `orderline_ibfk_2` FOREIGN KEY (`book_id`) REFERENCES `book` (`book_id`);
+
+--
+-- Constraints for table `orders`
+--
+ALTER TABLE `orders`
+  ADD CONSTRAINT `orders_ibfk_1` FOREIGN KEY (`customer_id`) REFERENCES `Customer` (`customer_id`);
+
+--
+-- Constraints for table `SwapBook`
+--
+ALTER TABLE `SwapBook`
+  ADD CONSTRAINT `swapbook_ibfk_1` FOREIGN KEY (`swap_id`) REFERENCES `Swap` (`swap_id`),
+  ADD CONSTRAINT `swapbook_ibfk_2` FOREIGN KEY (`Book_id`) REFERENCES `book` (`book_id`);
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
